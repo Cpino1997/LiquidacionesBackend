@@ -16,7 +16,7 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: no
           MYSQ_RANDOM_PASSWORD: no
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: node
+          MYSQL_DATABASE: liquidaciones
         ports:
           - 3306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
@@ -30,7 +30,7 @@ jobs:
       - name: Configuracion de Java JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '19'
           distribution: 'adopt'
           cache: maven
 
