@@ -26,7 +26,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +57,7 @@ public class AuthController {
 
     @PostMapping("/login")
     @Order(1)
-    @Operation(summary = "Login", description = "Login")
+    @Operation(summary = "Ingreso de Usuario", description = "Este es el autenticador de usuario, donde deberas enviar tu usuario y contraseña para validad tu identidad y recibir un token ")
     public ResponseEntity<UserDTO> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
 
         Authentication authentication = authenticationManager
@@ -86,7 +85,7 @@ public class AuthController {
                 .body(new UserDTO(userDetails.getId(),
                         userDetails.getUsername(),
                         userDetails.getEmail(),
-                        roles));
+                        roles, jwtCookie));
     }
 
     @PostMapping("/registro")

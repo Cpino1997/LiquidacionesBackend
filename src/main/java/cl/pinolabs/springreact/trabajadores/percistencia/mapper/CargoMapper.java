@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CargoMapper {
     CargoDTO toCargo(Cargo cargo);
-    List<CargoDTO> cargos(List<Cargo> cargos);
+    List<CargoDTO> toCargos(List<Cargo> cargos);
     @InheritInverseConfiguration
     Cargo toCargoDTO(CargoDTO cargoDTO);
 }
