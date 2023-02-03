@@ -1,7 +1,6 @@
 package cl.pinolabs.springreact;
 
 import cl.pinolabs.springreact.trabajadores.percistencia.crud.TestCrud;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
