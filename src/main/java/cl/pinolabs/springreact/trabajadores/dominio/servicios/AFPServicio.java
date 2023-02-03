@@ -32,10 +32,6 @@ public class AFPServicio {
                 .orElse(false);
     }
     public boolean exitsByNombre(String nombre){
-        boolean existe = repo.exitsByNombre(nombre);
-        if(existe){
-            return true;
-        }
-        return false;
+        return repo.exitsByNombre(nombre);
     }
 }

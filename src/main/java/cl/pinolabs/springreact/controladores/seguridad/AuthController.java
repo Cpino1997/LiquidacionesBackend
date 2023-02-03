@@ -14,9 +14,11 @@ import cl.pinolabs.springreact.security.modelos.percistencia.entity.Role;
 import cl.pinolabs.springreact.security.modelos.percistencia.entity.User;
 import cl.pinolabs.springreact.security.config.TokenRefreshException;
 import cl.pinolabs.springreact.security.config.jwt.JwtUtils;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 @RestController
+@Order(1)
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
@@ -53,6 +56,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Order(1)
+    @Operation(summary = "Ingreso de Usuario", description = "Este es el autenticador de usuario, donde deberas enviar tu usuario y contraseña para validad tu identidad y recibir un token ")
     public ResponseEntity<UserDTO> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
 
         Authentication authentication = authenticationManager
@@ -80,7 +85,7 @@ public class AuthController {
                 .body(new UserDTO(userDetails.getId(),
                         userDetails.getUsername(),
                         userDetails.getEmail(),
-                        roles));
+                        roles, jwtCookie));
     }
 
     @PostMapping("/registro")
