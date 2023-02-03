@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  ## primeros pasos
+  sqldb:
+    image: mysql:8.0
+    container_name: sqldb
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=liquidaciones
+    ports:
+      - "3306:3306"
+  backend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: spring
+    restart: on-failure
+    ports:
+      - "8081:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://sqldb:3306/liquidaciones
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    depends_on:
+      - sqldb
+    labels:
+      kompose.service.type: LoadBalancer

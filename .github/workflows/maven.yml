@@ -1,0 +1,51 @@
+#name: test workflow
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7.6
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: no
+          MYSQ_RANDOM_PASSWORD: no
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: node
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Creacion de Save-state
+        run: echo "{name}={value}" >> $GITHUB_STATE
+      - name: Creacion de Set-output
+        run: echo "{name}={value}" >> $GITHUB_OUTPUT
+      - name: Configuracion de Java JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: maven
+
+      - name: Construyendo con mavaven
+        run: mvn clean install
+
+      - name: Test app
+        run: mvn test
+
+      - name: Build & push Docker image
+        uses: mr-smithers-excellent/docker-build-push@v5
+        with:
+          image: pinolabs/spring-react
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
