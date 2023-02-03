@@ -3,12 +3,14 @@ package cl.pinolabs.springreact.controladores.trabajadores;
 import cl.pinolabs.springreact.trabajadores.dominio.dto.AFPDTO;
 import cl.pinolabs.springreact.trabajadores.dominio.servicios.AFPServicio;
 import jakarta.validation.Valid;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Order(2)
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 @RequestMapping("/afp")
 public class AFPController {

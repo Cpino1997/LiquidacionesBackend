@@ -14,9 +14,11 @@ import cl.pinolabs.springreact.security.modelos.percistencia.entity.Role;
 import cl.pinolabs.springreact.security.modelos.percistencia.entity.User;
 import cl.pinolabs.springreact.security.config.TokenRefreshException;
 import cl.pinolabs.springreact.security.config.jwt.JwtUtils;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,7 @@ import java.util.*;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600, allowCredentials="true")
 @RestController
+@Order(1)
 @RequestMapping("/auth")
 public class AuthController {
     private final AuthenticationManager authenticationManager;
@@ -53,6 +57,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Order(1)
+    @Operation(summary = "Login", description = "Login")
     public ResponseEntity<UserDTO> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
 
         Authentication authentication = authenticationManager
