@@ -17,7 +17,6 @@ jobs:
           MYSQL_DATABASE: liquidaciones
         ports:
           - 3306:3306
-
     steps:
       - uses: actions/checkout@v3
 
