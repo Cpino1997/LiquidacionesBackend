@@ -2,7 +2,6 @@ package cl.pinolabs.springreact.controladores.trabajadores;
 
 import cl.pinolabs.springreact.trabajadores.dominio.dto.CargoDTO;
 import cl.pinolabs.springreact.trabajadores.dominio.servicios.CargoService;
-import cl.pinolabs.springreact.trabajadores.percistencia.entity.Cargo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
