@@ -43,5 +43,5 @@ jobs:
       - name: Construyendo con mavaven
         run: mvn clean install
 
-  deploy:
-
+      - name: Test APP
+        run: mvn test
