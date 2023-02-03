@@ -40,5 +40,5 @@ jobs:
           echo "spring.datasource.username=root" >> application.properties
           echo "spring.datasource.password=root" >> application.properties
 
-      - name: Construyendo y testeando con mavaven
+      - name: Construyendo y testeando con maven
         run: mvn clean install
