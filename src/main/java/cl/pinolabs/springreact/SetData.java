@@ -36,5 +36,23 @@ public class SetData implements ApplicationListener<ContextRefreshedEvent> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        try (Connection connection = dataSource.getConnection();
+             Statement statement = connection.createStatement();) {
+
+            ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM test");
+            resultSet.next();
+            int count = resultSet.getInt(1);
+
+            if (count == 0) {
+                statement.executeUpdate("INSERT INTO test (id, mensaje) VALUES (1, 'holanda')");
+                System.out.println("---------- Se han creado el usuario test!");
+            }else{
+                System.out.println("No se ha creado el usuario test!");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }
