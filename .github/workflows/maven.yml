@@ -1,5 +1,3 @@
-#name: test workflow
-
 on:
   push:
     branches: [ master ]
@@ -11,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       mysql:
-        image: mysql:5.7.6
+        image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: no
           MYSQ_RANDOM_PASSWORD: no
@@ -36,6 +34,12 @@ jobs:
 
       - name: Construyendo con mavaven
         run: mvn clean install
+
+      - name: Configuración de conexión a la base de datos
+        run: |
+          echo "spring.datasource.url=jdbc:mysql://localhost:3306/liquidaciones" >> application.properties
+          echo "spring.datasource.username=root" >> application.properties
+          echo "spring.datasource.password=root" >> application.properties
 
       - name: Test app
         run: mvn test
