@@ -1,4 +1,4 @@
-package cl.pinolabs.springreact;
+package cl.pinolabs.springreact.utils;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
